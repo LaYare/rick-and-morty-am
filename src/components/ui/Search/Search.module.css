@@ -19,7 +19,7 @@
   background-color: #000; 
   border: 1px solid #76DD00;
   border-radius: 8px; 
-  padding: 12px 40px 12px 45px; 
+  padding: 16px 40px 16px 45px; 
   color: #76DD0080;
   font-size: 1rem;
   outline: none;
@@ -43,10 +43,11 @@
 }
 
 .iconLeft {
-  left: 15px;
+  left: 16px;
 }
 
 .iconRight {
-  right: 15px;
+  right: 16px;
+  margin-top: 6px;
 }
 
