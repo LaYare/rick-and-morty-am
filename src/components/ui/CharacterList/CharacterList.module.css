@@ -1,0 +1,42 @@
+.grid {
+  display: flex;         
+  flex-direction: row;    
+  overflow-x: auto;      
+  overflow-y: hidden;     
+  gap: 1rem;              
+  width: 100%;
+  height: 100%;
+  padding-bottom: 10px;  
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch; 
+}
+
+.grid::-webkit-scrollbar {
+  height: 4px; 
+}
+.grid::-webkit-scrollbar-track {
+  background: transparent;
+}
+.grid > * {
+  scroll-snap-align: center; 
+  flex: 0 0 47%; 
+  min-width: 140px; 
+}
+
+
+@media (min-width: 1024px) {
+  .grid {
+    display: grid; 
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: min-content; 
+    overflow-x: hidden;
+    overflow-y: auto;
+    scroll-snap-type: none;
+  }
+
+  .grid > * {
+    flex: unset;
+    min-width: auto;
+    width: auto;
+  }
+}
