@@ -1,12 +1,28 @@
 import MainContainer from '@/components/layout/MainContainer';
+import { Search } from '@/components/ui/Search';
+import { getCharacters } from '@/lib/api';
+import { HomeProps } from '@/types';
 
-export default function Home() {
+export default async function Home({ searchParams }: HomeProps) {
+  const params = await searchParams;
+  const page = Number(params.page) || 1;
+  const name = typeof params.name === 'string' ? params.name : undefined;
+
+  const data = await getCharacters(page, { name });
+
   return (
     <MainContainer>
-      {/* Elementos dummy para probar el Grid Areas */}
-      <div style={{ gridArea: 'search', color: 'white', border: '1px solid blue' }}>SEARCH</div>
-      <div style={{ gridArea: 'list', color: 'white', border: '1px solid green'}}>LISTA</div>
-      <div style={{ gridArea: 'detail', color: 'white', border: '1px solid yellow' }}>DETALLE</div>
+      <div style={{ gridArea: 'search' }}>
+         <Search />
+      </div>
+      
+      <div style={{ gridArea: 'list', border: '1px solid green', color: 'white', overflow: 'auto' }}>
+        <h3>Resultados: {data.info.count}</h3>
+      </div>
+      
+      <div style={{ gridArea: 'detail', border: '1px solid yellow', color: 'white' }}>
+        DETALLE DEL PERSONAJE
+      </div>
       
     </MainContainer>
   );

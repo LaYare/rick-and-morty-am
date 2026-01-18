@@ -36,3 +36,7 @@ export interface CharacterFilters {
   type?: string;
   gender?: string;
 }
+
+export interface HomeProps {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}
