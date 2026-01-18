@@ -2,6 +2,7 @@ import MainContainer from '@/components/layout/MainContainer';
 import { Search } from '@/components/ui/Search';
 import { getCharacters } from '@/lib/api';
 import { HomeProps } from '@/types';
+import { CharacterList } from '@/components/ui/CharacterList';
 
 export default async function Home({ searchParams }: HomeProps) {
   const params = await searchParams;
@@ -12,12 +13,12 @@ export default async function Home({ searchParams }: HomeProps) {
 
   return (
     <MainContainer>
-      <div style={{ gridArea: 'search' }}>
+      <div style={{ gridArea: 'search', backgroundColor: '#1C1C1C' }}>
          <Search />
       </div>
       
-      <div style={{ gridArea: 'list', border: '1px solid green', color: 'white', overflow: 'auto' }}>
-        <h3>Resultados: {data.info.count}</h3>
+      <div style={{ gridArea: 'list', color: 'white', overflow: 'auto' }}>
+        <CharacterList characters={data.results} />
       </div>
       
       <div style={{ gridArea: 'detail', border: '1px solid yellow', color: 'white' }}>
