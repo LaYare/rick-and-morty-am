@@ -4,4 +4,6 @@ export interface CharacterCardProps {
   character: Character;
   isFavorite: boolean;
   onToggleFavorite: (id: number) => void;
+  isActive?: boolean;
+  onClick: () => void;
 }

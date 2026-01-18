@@ -1,5 +1,7 @@
 'use client';
+
 import { useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Character } from '@/types';
 import { CharacterCard } from '@/components/ui/CharacterCard';
 import styles from './CharacterList.module.css';
@@ -9,16 +11,25 @@ interface CharacterListProps {
 }
 
 export const CharacterList = ({ characters }: CharacterListProps) => {
-  // Estado local temporal para probar los corazones
+  const router = useRouter();
+  const searchParams = useSearchParams(); 
+  const urlId = Number(searchParams.get('characterId'));
+  const isUrlIdValid = characters.some((c) => c.id === urlId);
+  const selectedId = isUrlIdValid ? urlId : characters[0]?.id;
+
+  // Estado temporal de favoritos
   const [favorites, setFavorites] = useState<number[]>([]);
 
-  // Esta función simula el agregar o quitar de favoritos
   const toggleFavorite = (id: number) => {
     setFavorites((prev) => 
-      prev.includes(id) 
-        ? prev.filter((favId) => favId !== id) 
-        : [...prev, id] 
+      prev.includes(id) ? prev.filter((favId) => favId !== id) : [...prev, id] 
     );
+  };
+
+  const handleSelect = (id: number) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('characterId', id.toString());
+    router.replace(`?${params.toString()}`, { scroll: false });
   };
 
   if (!characters?.length) return <div style={{color:'white'}}>No hay resultados</div>;
@@ -31,6 +42,8 @@ export const CharacterList = ({ characters }: CharacterListProps) => {
           character={char}
           isFavorite={favorites.includes(char.id)}
           onToggleFavorite={toggleFavorite}
+          isActive={char.id === selectedId}
+          onClick={() => handleSelect(char.id)}
         />
       ))}
     </div>

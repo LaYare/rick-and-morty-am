@@ -6,11 +6,13 @@ import { LikeButton } from '../LikeButton';
 export const CharacterCard = ({ 
   character, 
   isFavorite, 
-  onToggleFavorite 
+  onToggleFavorite,
+  isActive = false,
+  onClick,
 }: CharacterCardProps) => {
 
   return (
-    <article className={styles.card}>
+    <article className={styles.card} onClick={onClick} data-is-active={isActive}>
       <h3 className={styles.name} title={character.name}>
         {character.name}
       </h3>

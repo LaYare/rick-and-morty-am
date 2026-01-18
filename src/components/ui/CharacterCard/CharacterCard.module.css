@@ -12,6 +12,17 @@
   max-width: 190px;
 }
 
+.card[data-is-active="true"] {
+  border: 1px solid #76DD00;
+  
+}
+
+.card[data-is-active="false"] {
+  border: 1px solid transparent;
+  
+}
+
+
 .card:hover {
   background: #212121CC;
   box-shadow: 0 15px 35px -5px rgba(0, 0, 0, 0.6);
