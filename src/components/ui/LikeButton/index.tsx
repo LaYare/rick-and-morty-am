@@ -2,7 +2,7 @@ import { Button } from '@/components/button';
 import { HeartIcon } from '@/components/icons';
 import { LikeButtonProps } from './LikeButton';
 
-export const LikeButton = ({ isFavorite, onClick, characterName, className }: LikeButtonProps) => {
+export const LikeButton = ({ isFavorite, onClick, className }: LikeButtonProps) => {
   return (
     <Button
       className={className}

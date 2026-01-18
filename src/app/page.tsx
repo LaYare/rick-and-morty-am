@@ -13,7 +13,7 @@ export default async function Home({ searchParams }: HomeProps) {
 
   return (
     <MainContainer>
-      <div style={{ gridArea: 'search' }}>
+      <div style={{ gridArea: 'search', backgroundColor: '#1C1C1C' }}>
          <Search />
       </div>
       
