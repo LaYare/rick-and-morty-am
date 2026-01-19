@@ -23,8 +23,6 @@ export const CharacterList = ({ characters }: CharacterListProps) => {
   const dispatch = useAppDispatch();
   const favorites = useAppSelector((state) => state.favorites.items);
 
-  console.log("🌟 ESTADO ACTUAL DE FAVORITOS:", favorites);
-
   useEffect(() => {
     dispatch(fetchFavorites());
   }, [dispatch]);
