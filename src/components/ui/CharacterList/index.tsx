@@ -1,10 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Character } from '@/types';
 import { CharacterCard } from '@/components/ui/CharacterCard';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+import { addFavoriteAsync, fetchFavorites } from '@/store/slices/favoritesSlice';
 import styles from './CharacterList.module.css';
+import { FavoritesDropdown } from '../FavoritesDropdown';
 
 interface CharacterListProps {
   characters: Character[];
@@ -17,15 +20,16 @@ export const CharacterList = ({ characters }: CharacterListProps) => {
   const isUrlIdValid = characters.some((c) => c.id === urlId);
   const selectedId = isUrlIdValid ? urlId : characters[0]?.id;
 
-  // Estado temporal de favoritos
-  const [favorites, setFavorites] = useState<number[]>([]);
+  const dispatch = useAppDispatch();
+  const favorites = useAppSelector((state) => state.favorites.items);
 
-  const toggleFavorite = (id: number) => {
-    setFavorites((prev) => 
-      prev.includes(id) ? prev.filter((favId) => favId !== id) : [...prev, id] 
-    );
+  useEffect(() => {
+    dispatch(fetchFavorites());
+  }, [dispatch]);
+
+  const handleAddFavorite = (character: Character) => {
+    dispatch(addFavoriteAsync(character));
   };
-
   const handleSelect = (id: number) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set('characterId', id.toString());
@@ -36,16 +40,20 @@ export const CharacterList = ({ characters }: CharacterListProps) => {
 
   return (
     <div className={styles.grid}>
-      {characters.map((char) => (
+      {characters.map((char) => { 
+        const isFav = favorites.some((fav) => fav.id === char.id);
+
+        return(
         <CharacterCard
           key={char.id}
           character={char}
-          isFavorite={favorites.includes(char.id)}
-          onToggleFavorite={toggleFavorite}
+          isFavorite={isFav}
+          onAddFavorite={() => !isFav && handleAddFavorite(char)}
           isActive={char.id === selectedId}
           onClick={() => handleSelect(char.id)}
         />
-      ))}
+      )})}
+      <FavoritesDropdown />
     </div>
   );
 };
