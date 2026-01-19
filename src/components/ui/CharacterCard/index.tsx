@@ -6,7 +6,7 @@ import { LikeButton } from '../LikeButton';
 export const CharacterCard = ({ 
   character, 
   isFavorite, 
-  onToggleFavorite,
+  onAddFavorite,
   isActive = false,
   onClick,
 }: CharacterCardProps) => {
@@ -28,7 +28,7 @@ export const CharacterCard = ({
 
       <LikeButton 
         isFavorite={isFavorite}
-        onClick={() => onToggleFavorite(character.id)}
+        onClick={() => onAddFavorite(character.id)}
         characterName={character.name}
         className={styles.likeButton}
       />
